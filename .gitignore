@@ -1,0 +1,16 @@
+# Clés / secrets
+PEXELS_API_KEY*.txt
+.env
+.env.*
+!.env.example
+
+# Logs de dev
+*.log
+
+# Fichiers de test générés
+og-test.html
+mod-test.txt
+
+# Dépendances/builds (doublon de sécurité)
+node_modules/
+.next/
