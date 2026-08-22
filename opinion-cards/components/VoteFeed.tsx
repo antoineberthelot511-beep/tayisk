@@ -121,12 +121,30 @@ export default function VoteFeed({ initial }: { initial: FeedStatement[] }) {
         <span className="font-display text-xl tracking-tight">
           Opinion<span className="text-agree">.</span>
         </span>
-        <Link
-          href="/creer"
-          className="eyebrow rounded-full border border-paper/20 px-3.5 py-2 text-paper/70 transition-colors hover:border-paper/50 hover:text-paper"
-        >
-          {copy.create}
-        </Link>
+        <nav className="flex items-center gap-2">
+          <Link
+            href="/profil"
+            aria-label={copy.profile}
+            title={copy.profile}
+            className="rounded-full border border-paper/20 p-2 text-paper/60 transition-colors hover:border-paper/50 hover:text-paper"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden>
+              <path
+                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+          <Link
+            href="/creer"
+            className="eyebrow rounded-full border border-paper/20 px-3.5 py-2 text-paper/70 transition-colors hover:border-paper/50 hover:text-paper"
+          >
+            {copy.createShort}
+          </Link>
+        </nav>
       </header>
 
       <div className="relative my-5 flex-1">

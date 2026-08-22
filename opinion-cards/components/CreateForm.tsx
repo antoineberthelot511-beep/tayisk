@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { rememberStatement } from "@/lib/mine";
 import type { Suggestion } from "@/app/api/spellcheck/route";
 
 const MAX_LENGTH = 200;
@@ -83,6 +84,9 @@ export default function CreateForm() {
         setSent({ state: "error", message: data.error ?? "Échec de l'envoi." });
         return;
       }
+      // Sans compte, c'est ce qui rattache la carte a l'appareil pour /profil.
+      if (typeof data.id === "string") rememberStatement(data.id);
+
       setSent({ state: "done", pending: data.status === "pending" });
       setText("");
       setKeyword("");

@@ -118,7 +118,10 @@ export default function VoteCard({
           <p className="eyebrow text-paper/45">
             {total > 0 ? copy.votes(total) : copy.newCard}
           </p>
-          <ShareButton statement={statement} lang={lang} variant="icon" />
+          {/* Uniquement sur la carte du dessus : les cartes de la pile sont
+              aria-hidden, un bouton focusable dedans serait inatteignable au
+              clavier et composerait une image pour rien. */}
+          {onVote && <ShareButton statement={statement} lang={lang} variant="icon" />}
         </div>
         <h2
           className="font-display text-[clamp(1.9rem,7.2vw,2.9rem)] leading-[1.06] text-balance text-paper"
