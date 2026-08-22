@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
+@theme {
+  /* Palette : encre profonde, papier chaud, deux accents francs */
+  --color-ink: #0b0b10;
+  --color-ink-2: #15151f;
+  --color-paper: #f4efe4;
+  --color-agree: #c9f31d;
+  --color-disagree: #ff3b5c;
+
+  --font-display: var(--font-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Hauteur visible reelle sur mobile, barres de navigateur comprises */
+.h-screen-safe {
+  height: 100dvh;
+}
+
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Petites capitales espacees : tout l'habillage secondaire de l'app */
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+/* Grain sur toute la page : casse l'aspect degrade lisse */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Voile sombre sur la photo : garantit la lisibilite du texte quelle que
+   soit l'image renvoyee par l'API */
+.scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(11, 11, 16, 0.35) 0%,
+    rgba(11, 11, 16, 0.5) 35%,
+    rgba(11, 11, 16, 0.88) 78%,
+    rgba(11, 11, 16, 0.96) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
