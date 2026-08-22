@@ -1,29 +1,14 @@
-"use client";
+import { cookies } from "next/headers";
+import VoteFeed from "@/components/VoteFeed";
+import { getFeed } from "@/lib/feed";
 
-import Link from "next/link";
-import VoteCard from "@/components/VoteCard";
-import StreakBadge from "@/components/StreakBadge";
-import { useDeviceId } from "@/lib/use-device-id";
+export const dynamic = "force-dynamic";
 
-export default function Home() {
-  const deviceId = useDeviceId();
+export default async function Home() {
+  // Le device_id est pose par le client ; au premier passage il n'existe pas
+  // encore et on sert simplement un lot aleatoire.
+  const deviceId = (await cookies()).get("oc_device_id")?.value ?? "";
+  const initial = await getFeed(deviceId);
 
-  return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col gap-4 px-4 py-6 md:max-w-lg">
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <h1 className="text-xl font-extrabold tracking-tight">⚡ Opinion Cards</h1>
-          <StreakBadge />
-        </div>
-        <nav className="flex items-center gap-2 text-sm">
-          <Link href="/tendances" className="rounded-full bg-neutral-200 px-3 py-2 font-semibold dark:bg-neutral-800">🔥</Link>
-          <Link href="/profil" className="rounded-full bg-neutral-200 px-3 py-2 font-semibold dark:bg-neutral-800">👤</Link>
-          <Link href="/create" className="rounded-full bg-black px-4 py-2 font-semibold text-white dark:bg-white dark:text-black">
-            + Créer
-          </Link>
-        </nav>
-      </header>
-      {deviceId ? <VoteCard deviceId={deviceId} /> : null}
-    </main>
-  );
+  return <VoteFeed initial={initial} />;
 }
